@@ -2,10 +2,7 @@ package me.sky.recipeapp.controllers;
 
 import me.sky.recipeapp.model.Recipe;
 import me.sky.recipeapp.services.RecipeService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/recipes")
@@ -15,8 +12,8 @@ public class RecipeController {
     public RecipeController(RecipeService recipeService) {
         this.recipeService = recipeService;
     }
-    @GetMapping("/new")
-    public void putNewRecipe(@RequestParam Recipe recipe){recipeService.putNewRecipe(recipe);}
+    @PostMapping("/new")
+    public void putNewRecipe(@RequestBody Recipe recipe){recipeService.putNewRecipe(recipe);}
     @GetMapping("/get")
     public Recipe getRecipe(@RequestParam int numRecipe){return recipeService.getRecipe(numRecipe);}
 }
