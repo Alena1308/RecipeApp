@@ -9,16 +9,41 @@ import java.util.Map;
 @Service
 public class IngredientsServiceImpl implements IngredientsService {
     public static Map<Integer, Ingredients> ingredientsMap = new LinkedHashMap<>();
-    public static Integer idIngr = 0;
+    public static int idIngr = 0;
 
     @Override
-    public void putNewIngr(Ingredients ingredient) {
-        ingredientsMap.put(idIngr++,ingredient);
-        System.out.println(ingredientsMap.toString());
+    public int putNewIngr(Ingredients ingredient) {
+        ingredientsMap.put(idIngr,ingredient);
+        return idIngr++;
     }
 
     @Override
-    public Ingredients getIngr(int numberIngredient) {
-        return ingredientsMap.get(numberIngredient);
+    public Ingredients getIngr(int id) {
+        if(ingredientsMap.get(id) != null){
+            return ingredientsMap.get(id);
+        }
+        return null;
+    }
+
+    @Override
+    public Map<Integer, Ingredients> getAllIngr(){
+        return ingredientsMap;
+    }
+
+    @Override
+    public Ingredients editIngr(int id, Ingredients ingredient){
+        if (ingredientsMap.containsKey(id)){
+            ingredientsMap.put(id, ingredient);
+        }
+        return ingredient;
+    }
+
+    @Override
+    public boolean deleteIngr(int id){
+        if(ingredientsMap.containsKey(id)){
+            ingredientsMap.remove(id);
+            return true;
+        }
+        return false;
     }
 }

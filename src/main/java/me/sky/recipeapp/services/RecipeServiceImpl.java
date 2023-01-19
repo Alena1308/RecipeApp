@@ -10,15 +10,46 @@ import java.util.Map;
 @Service
 public class RecipeServiceImpl implements RecipeService {
     public static Map<Integer, Recipe> recipeMap = new LinkedHashMap<>();
-    public static Integer idRecipe = 0;
+    public static int idRecipe = 0;
+
     @Override
-    public void putNewRecipe(Recipe recipe) {
-        recipeMap.put(idRecipe++,recipe);
-        System.out.println(recipeMap.toString());
+    public int putNewRecipe(Recipe recipe) {
+        recipeMap.put(idRecipe, recipe);
+        return idRecipe++;
     }
 
     @Override
-    public Recipe getRecipe(int numberRecipe) {
-        return recipeMap.get(numberRecipe);
+    public Recipe getRecipe(int id) {
+        if (recipeMap.get(id) != null) {
+            return recipeMap.get(id);
+        }
+        return null;
     }
+    @Override
+    public Map<Integer, Recipe> getAllRecipes(){
+        return recipeMap;
+    }
+
+//    @Override
+//    public Recipe getRecipeByIdIngr(int id) {
+//        return null;
+//    }
+
+    @Override
+    public Recipe editRecipe(int id, Recipe recipe){
+        if (recipeMap.containsKey(id)){
+            recipeMap.put(id, recipe);
+        }
+        return recipe;
+    }
+
+    @Override
+    public boolean deleteRecipe(int id){
+        if(recipeMap.containsKey(id)){
+            recipeMap.remove(id);
+            return true;
+        }
+        return false;
+    }
+
 }
