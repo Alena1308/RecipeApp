@@ -1,6 +1,5 @@
 package me.sky.recipeapp.services;
 
-import me.sky.recipeapp.model.Ingredients;
 import me.sky.recipeapp.model.Recipe;
 
 import java.util.Map;

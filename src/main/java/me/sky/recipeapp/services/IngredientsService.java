@@ -6,7 +6,7 @@ import java.util.Map;
 
 
 public interface IngredientsService {
-    int putNewIngr(Ingredients ingredient);
+    Ingredients putNewIngr(Ingredients ingredient);
     Ingredients getIngr(int numberIngredient);
 
     Map<Integer, Ingredients> getAllIngr();

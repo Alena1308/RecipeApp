@@ -8,13 +8,13 @@ import java.util.Map;
 
 @Service
 public class IngredientsServiceImpl implements IngredientsService {
-    public static Map<Integer, Ingredients> ingredientsMap = new LinkedHashMap<>();
-    public static int idIngr = 0;
+    private final static Map<Integer, Ingredients> ingredientsMap = new LinkedHashMap<>();
+    public static Integer idIngr = 0;
 
     @Override
-    public int putNewIngr(Ingredients ingredient) {
-        ingredientsMap.put(idIngr,ingredient);
-        return idIngr++;
+    public Ingredients putNewIngr(Ingredients ingredient) {
+        ingredientsMap.put(idIngr++,ingredient);
+        return ingredient;
     }
 
     @Override
