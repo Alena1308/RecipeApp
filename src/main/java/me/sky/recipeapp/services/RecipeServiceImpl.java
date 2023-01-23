@@ -1,6 +1,5 @@
 package me.sky.recipeapp.services;
 
-import me.sky.recipeapp.model.Ingredients;
 import me.sky.recipeapp.model.Recipe;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +28,6 @@ public class RecipeServiceImpl implements RecipeService {
     public Map<Integer, Recipe> getAllRecipes(){
         return recipeMap;
     }
-
-//    @Override
-//    public Recipe getRecipeByIdIngr(int id) {
-//        return null;
-//    }
 
     @Override
     public Recipe editRecipe(int id, Recipe recipe){

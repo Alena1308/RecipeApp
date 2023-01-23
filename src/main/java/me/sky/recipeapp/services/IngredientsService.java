@@ -7,11 +7,11 @@ import java.util.Map;
 
 public interface IngredientsService {
     Ingredients putNewIngr(Ingredients ingredient);
-    Ingredients getIngr(int numberIngredient);
+    Ingredients getIngr(Integer id);
 
     Map<Integer, Ingredients> getAllIngr();
 
-    Ingredients editIngr(int id, Ingredients ingredient);
+    Ingredients editIngr(Integer id, Ingredients ingredient);
 
-    boolean deleteIngr(int id);
+    boolean deleteIngr(Integer id);
 }
