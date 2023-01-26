@@ -7,7 +7,6 @@ import me.sky.recipeapp.model.Ingredients;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.time.Month;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -65,6 +64,15 @@ public class IngredientsServiceImpl implements IngredientsService {
         }
         return false;
     }
+    @Override
+    public void deleteIngr(Ingredients ingredients){
+        if(ingredientsMap.containsValue(ingredients)){
+            for (Map.Entry<Integer, Ingredients>entry : ingredientsMap.entrySet()) {
+                Integer id = entry.getKey();
+                ingredientsMap.remove(id);
+            }
+        }
+    }
 
     private void saveToFileIngr(){
         try {
@@ -73,7 +81,7 @@ public class IngredientsServiceImpl implements IngredientsService {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-    };
+    }
     private void readFromFileIngr(){
         String json = filesService.readFromFileIngr();
         try {
@@ -82,5 +90,8 @@ public class IngredientsServiceImpl implements IngredientsService {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-    };
+    }
+    public static Map<Integer, Ingredients> getIngredientsMap(){
+        return ingredientsMap;
+    }
 }
