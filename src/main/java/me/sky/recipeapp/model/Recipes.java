@@ -15,7 +15,7 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode
-public class Recipe {
+public class Recipes {
     @NotBlank
     private String name;
     @Positive

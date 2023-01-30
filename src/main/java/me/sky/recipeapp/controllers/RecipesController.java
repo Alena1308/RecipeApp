@@ -8,9 +8,8 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import me.sky.recipeapp.model.Ingredients;
-import me.sky.recipeapp.model.Recipe;
-import me.sky.recipeapp.services.RecipeService;
+import me.sky.recipeapp.model.Recipes;
+import me.sky.recipeapp.services.RecipesService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,10 +18,10 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/recipes")
-public class RecipeController {
-    private final RecipeService recipeService;
+public class RecipesController {
+    private final RecipesService recipeService;
 
-    public RecipeController(RecipeService recipeService) {
+    public RecipesController(RecipesService recipeService) {
         this.recipeService = recipeService;
     }
 
@@ -32,10 +31,10 @@ public class RecipeController {
             @ApiResponse(
                     responseCode = "200", description = "Рецепт добавлен", content = {
                     @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Recipe.class)))
+                            array = @ArraySchema(schema = @Schema(implementation = Recipes.class)))
             }
             )})
-    public ResponseEntity<Integer> postNewRecipe(@Valid @RequestBody Recipe recipe) {
+    public ResponseEntity<Integer> postNewRecipe(@Valid @RequestBody Recipes recipe) {
         int id = recipeService.putNewRecipe(recipe);
         return ResponseEntity.ok().body(id);
     }
@@ -49,11 +48,11 @@ public class RecipeController {
             @ApiResponse(
                     responseCode = "200", description = "Рецепт был найден", content = {
                     @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Recipe.class)))
+                            array = @ArraySchema(schema = @Schema(implementation = Recipes.class)))
             }
             )})
-    public ResponseEntity<Recipe> getRecipeById(@PathVariable int id) {
-        Recipe recipe = recipeService.getRecipe(id);
+    public ResponseEntity<Recipes> getRecipeById(@PathVariable int id) {
+        Recipes recipe = recipeService.getRecipe(id);
         if (recipe == null) {
             return ResponseEntity.notFound().build();
         }
@@ -66,10 +65,10 @@ public class RecipeController {
             @ApiResponse(
                     responseCode = "200", description = "Рецепты найдены", content = {
                     @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Recipe.class)))
+                            array = @ArraySchema(schema = @Schema(implementation = Recipes.class)))
             }
             )})
-    public ResponseEntity<Map<Integer, Recipe>> getAllRecipes() {
+    public ResponseEntity<Map<Integer, Recipes>> getAllRecipes() {
         if (recipeService.getAllRecipes().isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -83,11 +82,11 @@ public class RecipeController {
             @ApiResponse(
                     responseCode = "200", description = "Осуществлено редактирование рецепта", content = {
                     @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Recipe.class)))
+                            array = @ArraySchema(schema = @Schema(implementation = Recipes.class)))
             }
             )})
-    public ResponseEntity<Recipe> editRecipeById(@PathVariable int id, @Valid @RequestBody Recipe newRecipe) {
-        Recipe recipe = recipeService.editRecipe(id, newRecipe);
+    public ResponseEntity<Recipes> editRecipeById(@PathVariable int id, @Valid @RequestBody Recipes newRecipe) {
+        Recipes recipe = recipeService.editRecipe(id, newRecipe);
         if (recipe == null) {
             return ResponseEntity.notFound().build();
         }
@@ -101,7 +100,7 @@ public class RecipeController {
             @ApiResponse(
                     responseCode = "200", description = "Рецепт удален", content = {
                     @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Recipe.class)))
+                            array = @ArraySchema(schema = @Schema(implementation = Recipes.class)))
             }
             )})
     public ResponseEntity<Void> deleteRecipeById(@PathVariable int id) {

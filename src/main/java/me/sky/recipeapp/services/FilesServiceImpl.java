@@ -3,12 +3,13 @@ package me.sky.recipeapp.services;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 @Service
-public class FileServiceImpl implements FilesService {
+public class FilesServiceImpl implements FilesService {
     @Value("${path.to.data.file}")
     private String dataFilePath;
     @Value("${name.of.ingredients.data.file}")
@@ -17,7 +18,7 @@ public class FileServiceImpl implements FilesService {
     private String dataRecFileName;
 
     @Override
-    public boolean saveToFileIngr(String json){
+    public boolean saveToFileIngr(String json) {
         try {
             cleanDataFileIngr();
             Files.writeString(Path.of(dataFilePath, dataIngrFileName), json);
@@ -26,9 +27,11 @@ public class FileServiceImpl implements FilesService {
             e.printStackTrace();
             return false;
         }
-    };
+    }
+
+
     @Override
-    public boolean saveToFileRec(String json){
+    public boolean saveToFileRec(String json) {
         try {
             cleanDataFileRec();
             Files.writeString(Path.of(dataFilePath, dataRecFileName), json);
@@ -37,27 +40,42 @@ public class FileServiceImpl implements FilesService {
             e.printStackTrace();
             return false;
         }
-    };
+    }
+
+
     @Override
-    public String readFromFileIngr(){
+    public String readFromFileIngr() {
         try {
             return Files.readString(Path.of(dataFilePath, dataIngrFileName));
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-    };
+    }
+
+
     @Override
-    public String readFromFileRec(){
+    public String readFromFileRec() {
         try {
             return Files.readString(Path.of(dataFilePath, dataRecFileName));
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-    };
+    }
+
     @Override
-    public boolean cleanDataFileIngr(){
+    public File getDataIngrFile() {
+        return new File(dataFilePath + "/" + dataIngrFileName);
+    }
+
+    @Override
+    public File getDataRecFile() {
+        return new File(dataFilePath + "/" + dataRecFileName);
+    }
+
+    @Override
+    public boolean cleanDataFileIngr() {
         try {
             Path path = Path.of(dataFilePath, dataIngrFileName);
             Files.deleteIfExists(path);
@@ -67,9 +85,11 @@ public class FileServiceImpl implements FilesService {
             e.printStackTrace();
             return false;
         }
-    };
+    }
+
+
     @Override
-    public boolean cleanDataFileRec(){
+    public boolean cleanDataFileRec() {
         try {
             Path path = Path.of(dataFilePath, dataRecFileName);
             Files.deleteIfExists(path);
@@ -79,5 +99,6 @@ public class FileServiceImpl implements FilesService {
             e.printStackTrace();
             return false;
         }
-    };
+    }
+
 }

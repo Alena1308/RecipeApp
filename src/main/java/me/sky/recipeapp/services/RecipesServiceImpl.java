@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.sky.recipeapp.model.Ingredients;
-import me.sky.recipeapp.model.Recipe;
+import me.sky.recipeapp.model.Recipes;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -12,13 +12,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Service
-public class RecipeServiceImpl implements RecipeService {
+public class RecipesServiceImpl implements RecipesService {
     final private FilesService filesService;
-    public static Map<Integer, Recipe> recipeMap = new LinkedHashMap<>();
+    public static Map<Integer, Recipes> recipeMap = new LinkedHashMap<>();
     public static int idRecipe = 0;
     private IngredientsService ingredientsService;
 
-    public RecipeServiceImpl(FilesService filesService, IngredientsService ingredientsService) {
+    public RecipesServiceImpl(FilesService filesService, IngredientsService ingredientsService) {
         this.filesService = filesService;
         this.ingredientsService = ingredientsService;
     }
@@ -29,7 +29,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public int putNewRecipe(Recipe recipe) {
+    public int putNewRecipe(Recipes recipe) {
         recipeMap.put(idRecipe, recipe);
         for(Ingredients ingredients : recipe.getIngredientsList()){
           if(!IngredientsServiceImpl.getIngredientsMap().containsValue(ingredients)){
@@ -41,21 +41,21 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public Recipe getRecipe(int id) {
+    public Recipes getRecipe(int id) {
         if (recipeMap.get(id) != null) {
             return recipeMap.get(id);
         }
         return null;
     }
     @Override
-    public Map<Integer, Recipe> getAllRecipes(){
+    public Map<Integer, Recipes> getAllRecipes(){
         return recipeMap;
     }
 
     @Override
-    public Recipe editRecipe(int id, Recipe recipe){
+    public Recipes editRecipe(int id, Recipes recipe){
         if (recipeMap.containsKey(id)){
-            Recipe oldRecipe = recipeMap.get(id);
+            Recipes oldRecipe = recipeMap.get(id);
             for (Ingredients ingredient : oldRecipe.getIngredientsList()){
                 if (IngredientsServiceImpl.getIngredientsMap().containsValue(ingredient)){
                     ingredientsService.deleteIngr(ingredient);
@@ -75,7 +75,7 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public boolean deleteRecipe(int id){
         if(recipeMap.containsKey(id)) {
-            Recipe recipe =recipeMap.get(id);
+            Recipes recipe =recipeMap.get(id);
             for (Ingredients ingredient : recipe.getIngredientsList()) {
                 if (IngredientsServiceImpl.getIngredientsMap().containsValue(ingredient)) {
                     ingredientsService.deleteIngr(ingredient);
@@ -97,7 +97,7 @@ public class RecipeServiceImpl implements RecipeService {
     private void readFromFileRec(){
         String json = filesService.readFromFileRec();
         try {
-            recipeMap = new ObjectMapper().readValue(json, new TypeReference<Map<Integer, Recipe>>() {
+            recipeMap = new ObjectMapper().readValue(json, new TypeReference<Map<Integer, Recipes>>() {
             });
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
