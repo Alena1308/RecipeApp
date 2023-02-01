@@ -11,10 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import me.sky.recipeapp.model.Ingredients;
 import me.sky.recipeapp.services.IngredientsService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,7 +20,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/ingredient")
-@Tag(name = "Ингредиенты", description = "CRUD-опереации и другие эндпоинты для работы с ингредиентами")
+@Tag(name = "ИНГРЕДИЕНТЫ", description = "CRUD-опереации и другие эндпоинты для работы с ингредиентами")
 public class IngredientsController {
     private final IngredientsService ingredientsService;
 

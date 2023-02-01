@@ -1,6 +1,7 @@
 package me.sky.recipeapp.services;
 
 import java.io.File;
+import java.nio.file.Path;
 
 public interface FilesService {
     boolean saveToFileIngr(String json);
@@ -14,6 +15,8 @@ public interface FilesService {
     File getDataIngrFile();
 
     File getDataRecFile();
+
+    Path createTempFile(String suffix);
 
     boolean cleanDataFileIngr();
 

@@ -15,7 +15,7 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode
-public class Recipes {
+public class Recipe {
     @NotBlank
     private String name;
     @Positive
@@ -23,6 +23,6 @@ public class Recipes {
     @NotEmpty
     private List<Ingredients> ingredientsList = new LinkedList<>();
     @NotEmpty
-    private List<String[]> steps = new LinkedList<>();
+    private List<String> steps = new LinkedList<>();
 
 }

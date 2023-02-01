@@ -15,5 +15,5 @@ public interface IngredientsService {
 
     boolean deleteIngr(Integer id);
 
-    void deleteIngr(Ingredients ingredients);
+    boolean deleteIngr(Ingredients ingredients);
 }

@@ -60,18 +60,22 @@ public class IngredientsServiceImpl implements IngredientsService {
     public boolean deleteIngr(Integer id){
         if(ingredientsMap.containsKey(id)){
             ingredientsMap.remove(id);
+            saveToFileIngr();
             return true;
         }
         return false;
     }
     @Override
-    public void deleteIngr(Ingredients ingredients){
+    public boolean deleteIngr(Ingredients ingredients){
         if(ingredientsMap.containsValue(ingredients)){
             for (Map.Entry<Integer, Ingredients>entry : ingredientsMap.entrySet()) {
                 Integer id = entry.getKey();
                 ingredientsMap.remove(id);
+                saveToFileIngr();
             }
+            return true;
         }
+        return false;
     }
 
     private void saveToFileIngr(){
